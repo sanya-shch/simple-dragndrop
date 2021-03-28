@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import DragNDrop from "./components/DragNDrop";
 
@@ -12,9 +12,20 @@ const defaultData = [
 ];
 
 function App() {
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    if (localStorage.getItem("dndList")) {
+      // console.log(localStorage.getItem("dndList"));
+      setData(JSON.parse(localStorage.getItem("dndList")));
+    } else {
+      setData(defaultData);
+    }
+  }, [setData]);
+
   return (
     <div className="App">
-      <DragNDrop data={defaultData} />
+      <DragNDrop data={data} />
 
       {/* <div className="drag-n-drop">
         {defaultData.map((grp, grpI) => (

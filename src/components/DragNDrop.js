@@ -12,7 +12,7 @@ function DragNDrop({ data }) {
   const dragItemNode = useRef(null);
 
   const handletDragStart = (e, item) => {
-    console.log("Starting to drag", item);
+    // console.log("Starting to drag", item);
 
     dragItem.current = item;
     dragItemNode.current = e.target;
@@ -24,13 +24,13 @@ function DragNDrop({ data }) {
   };
 
   const handleDragEnter = (e, targetItem) => {
-    console.log("Entering a drag target", targetItem);
+    // console.log("Entering a drag target", targetItem);
 
     if (dragItemNode.current !== e.target) {
-      console.log("Target is NOT the same as dragged item");
+      // console.log("Target is NOT the same as dragged item");
 
       setList((oldList) => {
-        const newList = oldList;
+        const newList = oldList; // JSON.parse(JSON.stringify(oldList));
 
         newList[targetItem.grpI].items.splice(
           targetItem.itemI,
@@ -42,13 +42,14 @@ function DragNDrop({ data }) {
         );
 
         dragItem.current = targetItem;
+        localStorage.setItem("dndList", JSON.stringify(newList));
         return newList;
       });
     }
   };
 
   const handleDragEnd = () => {
-    console.log("Ending drag...");
+    // console.log("Ending drag...");
 
     setDragging(false);
 
